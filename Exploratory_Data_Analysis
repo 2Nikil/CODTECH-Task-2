@@ -1,0 +1,179 @@
+# EXPLORATORY DATA ANALYSIS
+
+# Importing the Dependencies
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Loading the csv file
+
+data = pd.read_csv(r'C:\Users\nikhi\Downloads\StudentsPerformance.csv')
+
+
+data
+
+# Understanding the data
+
+data.head()
+
+data.tail()
+
+data.describe()
+
+data.shape
+
+data.columns
+
+data.nunique()
+
+data['parental level of education'].unique()
+
+# Cleaning the Data
+
+data.isnull().sum()
+
+student = data.drop(['parental level of education'], axis=1)
+
+student.head()
+
+# Relationship Analysis
+
+# Convert categorical columns to numeric using one-hot encoding
+
+
+correlation = student_encoded.corr()
+student_encoded = pd.get_dummies(student, drop_first=True)
+sns.heatmap(correlation, annot=True,
+            xticklabels=correlation.columns, yticklabels=correlation.columns)
+plt.title('Correlation Matrix')
+plt.show()
+
+sns.pairplot(student)
+
+sns.relplot(x='math score',y='reading score',hue='gender',data=student)
+
+sns.distplot(student['math score'],bins=5)
+
+sns.catplot(x='math score',kind='box',data=student)
+
+# Distribution Analysis for Each Score
+
+
+sns.distplot(student['reading score'], bins=5, kde=True)
+plt.title('Distribution of Reading Scores')
+plt.show()
+
+sns.distplot(student['writing score'], bins=5, kde=True)
+plt.title('Distribution of Writing Scores')
+plt.show()
+
+
+
+# Compare distributions by gender
+
+
+sns.kdeplot(data=student, x='math score', hue='gender', fill=True)
+plt.title('Distribution of Math Scores by Gender')
+plt.show()
+
+sns.kdeplot(data=student, x='reading score', hue='gender', fill=True)
+plt.title('Distribution of Reading Scores by Gender')
+plt.show()
+
+sns.kdeplot(data=student, x='writing score', hue='gender', fill=True)
+plt.title('Distribution of Writing Scores by Gender')
+plt.show()
+
+
+
+# Box Plots for Scores by Categories
+
+
+sns.boxplot(x='race/ethnicity', y='math score', data=student)
+plt.title('Math Scores by Race/Ethnicity')
+plt.show()
+
+sns.boxplot(x='race/ethnicity', y='reading score', data=student)
+plt.title('Reading Scores by Race/Ethnicity')
+plt.show()
+
+sns.boxplot(x='race/ethnicity', y='writing score', data=student)
+plt.title('Writing Scores by Race/Ethnicity')
+plt.show()
+
+sns.boxplot(x='test preparation course', y='math score', data=student)
+plt.title('Math Scores by Test Preparation Course')
+plt.show()
+
+sns.boxplot(x='test preparation course', y='reading score', data=student)
+plt.title('Reading Scores by Test Preparation Course')
+plt.show()
+
+sns.boxplot(x='test preparation course', y='writing score', data=student)
+plt.title('Writing Scores by Test Preparation Course')
+plt.show()
+
+
+
+# Count Plots for Categorical Data
+
+
+sns.countplot(x='gender', data=student)
+plt.title('Count of Students by Gender')
+plt.show()
+
+sns.countplot(x='race/ethnicity', data=student)
+plt.title('Count of Students by Race/Ethnicity')
+plt.show()
+
+sns.countplot(x='test preparation course', data=student)
+plt.title('Count of Students by Test Preparation Course')
+plt.show()
+
+
+
+# Scatter Plot Analysis
+
+
+sns.scatterplot(x='math score', y='reading score', hue='race/ethnicity', data=student)
+plt.title('Math Score vs Reading Score by Race/Ethnicity')
+plt.show()
+
+sns.scatterplot(x='math score', y='writing score', hue='race/ethnicity', data=student)
+plt.title('Math Score vs Writing Score by Race/Ethnicity')
+plt.show()
+
+sns.scatterplot(x='reading score', y='writing score', hue='race/ethnicity', data=student)
+plt.title('Reading Score vs Writing Score by Race/Ethnicity')
+plt.show()
+
+sns.scatterplot(x='math score', y='reading score', hue='test preparation course', data=student)
+plt.title('Math Score vs Reading Score by Test Preparation Course')
+plt.show()
+
+sns.scatterplot(x='math score', y='writing score', hue='test preparation course', data=student)
+plt.title('Math Score vs Writing Score by Test Preparation Course')
+plt.show()
+
+sns.scatterplot(x='reading score', y='writing score', hue='test preparation course', data=student)
+plt.title('Reading Score vs Writing Score by Test Preparation Course')
+plt.show()
+
+
+
+# Heatmaps for Categorical Data
+
+
+pd.crosstab(student['race/ethnicity'], student['gender'])
+sns.heatmap(pd.crosstab(student['race/ethnicity'], student['gender']), annot=True, fmt='d')
+plt.title('Count of Students by Race/Ethnicity and Gender')
+plt.show()
+
+pd.crosstab(student['test preparation course'], student['gender'])
+sns.heatmap(pd.crosstab(student['test preparation course'], student['gender']), annot=True, fmt='d')
+plt.title('Count of Students by Test Preparation Course and Gender')
+plt.show()
+
+
